@@ -1,19 +1,38 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# SQL Server Management Studio Solution File, Format Version 20.00
-VisualStudioVersion = 15.0.28307.421
-MinimumVisualStudioVersion = 10.0.40219.1
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Default|Default = Default|Default
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55476000-9053-4D7D-97A2-C33414BB78DA}.Default|Default.ActiveCfg = Default
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F05CAF2D-A22F-471E-B940-D84F97DB9E9E}
-	EndGlobalSection
-EndGlobal
+select * from [dbo].[LIta project sales data]
+
+select FORMAT( SUM(Sales),'C') AS TOTAL_SALES,product
+from[dbo].[LIta project sales data]
+GROUP BY product
+
+
+select Sales ,Region
+from[dbo].[LIta project sales data]
+
+
+select  top 1 product , FORMAT(SUM(Sales),'C') AS total_sales
+from[dbo].[LIta project sales data]
+GROUP BY PRODUCT
+
+SELECT FORMAT(sum(Sales),'C') as TOTAL_REVENUE,Product
+FROM[dbo].[LIta project sales data]
+group by product
+
+select format(sum( Sales),'C') as total_sales,Month,YEAR 
+from[dbo].[LIta project sales data]
+WHERE YEAR=2024
+group by Month,Year
+
+select PERCENT_RANK() over
+(Partition by Region order by Sales)
+Sales,Region
+from[dbo].[LIta project sales data]
+
+
+select top 5 Customer_Id, FORMAT(SUM(Sales),'C') AS total_purchase_amount
+from[dbo].[LIta project sales data]
+group by Customer_Id
+
+select Region,sum(Sales) as Total_Sales,(sum(Sales)*100.0) /sum(sum(Sales)) over () as percentagesales 
+from[dbo].[LIta project sales data]
+group by Region
